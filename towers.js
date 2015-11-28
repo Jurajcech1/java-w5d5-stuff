@@ -7,20 +7,21 @@ var reader = readline.createInterface({
 
 function TowersOfHanoi() {
   this.stack = [[3, 2, 1], [], []];
-};
+}
 
 TowersOfHanoi.prototype.isWon = function() {
-  return (game.stack[1].length === 3 || game.stack[2].length === 3);
+  return (this.stack[1].length === 3 || this.stack[2].length === 3);
 };
 
 TowersOfHanoi.prototype.isValidMove = function(startTowerIdx, endTowerIdx) {
   var startStack = this.stack[startTowerIdx];
   var endStack = this.stack[endTowerIdx];
-  var diskComparison = endStack[endStack.length - 1] > startStack[startStack.length - 1];
   if (startStack.length === 0) {
     return false;
   }
-  return (diskComparison || endStack.length === 0 );
+  var endStackTop = endStack[endStack.length - 1];
+  var startStackTop = startStack[startStack.length - 1];
+  return (endStackTop > startStackTop || endStack.length === 0 );
 };
 
 TowersOfHanoi.prototype.move = function(startTowerIdx, endTowerIdx) {
@@ -54,6 +55,7 @@ TowersOfHanoi.prototype.promptMove = function(callback) {
 };
 
 TowersOfHanoi.prototype.run = function(completionCallback) {
+
   var that = this;
   this.promptMove(function(startTowerIdx, endTowerIdx) {
     if (!that.move(startTowerIdx, endTowerIdx)) {

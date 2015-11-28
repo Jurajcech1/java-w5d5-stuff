@@ -4,10 +4,7 @@ function Clock() {
   this.minutes = date.getMinutes();
   this.seconds = date.getSeconds();
   this.printTime();
-  var that = this;
-  setInterval(function() {
-    that._tick();
-  }, 1000);
+  setInterval(this._tick.bind(this), 1000);
 }
 
 Clock.prototype.printTime = function () {
